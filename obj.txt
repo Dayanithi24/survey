@@ -1,0 +1,39 @@
+{
+    "title": "Title",
+    "description": "Description",
+    "questions": [
+        {
+            "question": "Question1",
+            "inputType": "multiple choice",
+            "support_message": "support",
+            "error_message": "error",
+            "required": true,
+            "options": [
+                "1",
+                "2"
+            ]
+        },
+        {
+            "question": "Question2",
+            "inputType": "text",
+            "support_message": "",
+            "error_message": "",
+            "required": false,
+            "   ": "3",
+            "maximum_value": "10"
+        },
+        {
+            "question": "Question3",
+            "inputType": "file",
+            "support_message": "support",
+            "error_message": "",
+            "required": true,
+            "file_formats": [
+                "pdf",
+                "docs"
+            ],
+            "maximum_number_of_files": "2",
+            "maximum_file_size": "100kb"
+        }
+    ]
+}

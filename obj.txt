@@ -1,38 +1,73 @@
 {
-    "title": "Title",
-    "description": "Description",
+    "title": "Survey 1",
+    "description": "description",
     "questions": [
         {
             "question": "Question1",
             "inputType": "multiple choice",
-            "support_message": "support",
-            "error_message": "error",
+            "support_message": "support msg",
+            "error_message": "error msg",
             "required": true,
             "options": [
-                "1",
-                "2"
+                "option1",
+                "option2"
             ]
         },
         {
             "question": "Question2",
-            "inputType": "text",
-            "support_message": "",
-            "error_message": "",
-            "required": false,
-            "   ": "3",
-            "maximum_value": "10"
+            "inputType": "checkbox",
+            "support_message": "support msg",
+            "error_message": "error msg",
+            "required": true,
+            "options": [
+                "check1",
+                "check2",
+                "check3"
+            ]
         },
         {
             "question": "Question3",
+            "inputType": "text",
+            "support_message": "support",
+            "error_message": "error",
+            "required": false,
+            "minimum_value": "4",
+            "maximum_value": "5"
+        },
+        {
+            "question": "Question4",
+            "inputType": "date",
+            "support_message": "support",
+            "error_message": "error",
+            "required": false
+        },
+        {
+            "question": "Question5",
+            "inputType": "number",
+            "support_message": "support",
+            "error_message": "error",
+            "required": true,
+            "minimum_value": "7",
+            "maximum_value": "88"
+        },
+        {
+            "question": "Question6",
+            "inputType": "time",
+            "support_message": "support",
+            "error_message": "error",
+            "required": false
+        },
+        {
+            "question": "Question7",
             "inputType": "file",
             "support_message": "support",
-            "error_message": "",
+            "error_message": "error",
             "required": true,
             "file_formats": [
                 "pdf",
                 "docs"
             ],
-            "maximum_number_of_files": "2",
+            "maximum_number_of_files": "1",
             "maximum_file_size": "100kb"
         }
     ]

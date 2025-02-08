@@ -1,11 +1,9 @@
 import loadModule from "./generator.js";
 import surveyCard from "./components/survey-card.js";
 import { formInputMap } from "./input.js";
-import changeModule from "./script.js";
-import { createCard } from "./admin-page.js";
 
-const newSurvey = {
-  tag: "div",
+const finalSurvey = {
+  tag: "form",
   attributes: {
     id: "form",
   },
@@ -44,32 +42,47 @@ const newSurvey = {
       children: [],
     },
     {
-      tag: "button",
+      tag: "div",
       attributes: {
-        id: "create-survey",
-        class: "add-question",
+        class: "final-survey-btn-container",
       },
-      content: "Create Survey",
+      children: [
+        {
+          tag: "input",
+          attributes: {
+            type: "reset",
+            class: "discard-survey-btn"
+          },
+          content: "Reset",
+        },
+        {
+          tag: "input",
+          attributes: {
+            type: "submit",
+            class: "create-survey-btn"
+          },
+          content: "Submit",
+        },
+      ],
     },
   ],
 };
 
-const newSurveyModule = loadModule(newSurvey);
+const finalSurveyModule = loadModule(finalSurvey);
 
-function loadData(data) {
-  console.log("new survey", data);
-  const questions = newSurveyModule.querySelector("#questions");
+function generateSurvey(data) {
+  console.log("Generate survey", data);
+  const questions = finalSurveyModule.querySelector("#questions");
   let child = questions.lastElementChild;
   while (child) {
-      questions.removeChild(child);
-      child = questions.lastElementChild;
+    questions.removeChild(child);
+    child = questions.lastElementChild;
   }
-  // console.log(questions);
-  newSurveyModule.querySelector("#new-survey-title-card-title").innerText = data.title;
-  newSurveyModule.querySelector("#new-survey-title-card-description").innerText = data.description;
+  finalSurveyModule.querySelector("#new-survey-title-card-title").innerText = data.title;
+  finalSurveyModule.querySelector("#new-survey-title-card-description").innerText = data.description;
   data.questions.forEach((question, index) => {
     const newSurveyCard = loadModule(surveyCard);
-    newSurveyCard.querySelector("#new-survey-card-question").innerText = `${question.question_num}) ${question.question}`;
+    newSurveyCard.querySelector("#new-survey-card-question").innerText = `${question.questionNum}) ${question.question}`;
     const inputArea = newSurveyCard.querySelector("#input-area");
     const id = `question${index + 1}`;
     switch (question.inputType) {
@@ -103,8 +116,8 @@ function loadData(data) {
         const text = loadModule(formInputMap.get("text"));
         text.setAttribute("name", id);
         text.setAttribute("id", id);
-        text.setAttribute("minlength", question.minimum_value);
-        text.setAttribute("maxlength", question.minimum_value);
+        text.setAttribute("minlength", question.minimumLength);
+        text.setAttribute("maxlength", question.maximumLength);
         inputArea.append(text);
         break;
       case "date":
@@ -123,7 +136,8 @@ function loadData(data) {
         const num = loadModule(formInputMap.get("number"));
         num.setAttribute("name", id);
         num.setAttribute("id", id);
-        // num.setAttribute("min", question.);
+        num.setAttribute("min", question.minimumValue);
+        num.setAttribute("max", question.maximumValue);
         inputArea.append(num);
         break;
       case "file":
@@ -133,38 +147,22 @@ function loadData(data) {
         inputArea.append(file);
         break;
     }
-    if(question.support_message){
-      const supportMessage = document.createElement('p');
-      supportMessage.setAttribute('class', 'support-msg')
+    if (question.support_message) {
+      const supportMessage = document.createElement("p");
+      supportMessage.setAttribute("class", "support-msg");
       supportMessage.innerText = question.support_message;
       inputArea.insertAdjacentElement("afterEnd", supportMessage);
     }
     questions.append(newSurveyCard);
   });
-  const createSurvey = newSurveyModule.querySelector('#create-survey');
-  createSurvey.addEventListener('click', () => {
-    console.log(JSON.stringify(data));
-     fetch("http://127.0.0.1:8080/",{
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-        },
-        body: JSON.stringify(data),
-      })
-      .then(response => {
-        if(!response.ok){
-          throw new Error("Not found")
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data);
-        setTimeout(() => createCard(data), 100);
-        changeModule('admin');
-      })
-      .catch(error => console.log(error));
-  });
+
+  finalSurveyModule.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target); 
+    const jsonData = Object.fromEntries(formData.entries());
+    console.log(jsonData);
+  })
 }
 
-export { newSurveyModule, loadData };
+
+export { finalSurveyModule, generateSurvey };

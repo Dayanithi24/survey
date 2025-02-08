@@ -10,6 +10,33 @@ body {
   background-color: rgba(122, 92, 250, 0.2);
 }
 
+.flex-spb {
+  display: flex;
+  justify-content: space-between;
+}
+
+.login-card {
+  position: absolute;
+  top: 30%;
+  left: 35%;
+  height: 200px;
+  width: 300px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: end;
+  border-radius: 6px;
+  box-shadow: 0 0 5px #666666;
+  padding: 20px;
+}
+
+.login-card .input-option, .login-card .question-card-dropdown {
+  width: inherit;
+  box-sizing: border-box;
+  margin: 0;
+}
+
 .create-survey-header {
   height: 80px;
   width: 100%;
@@ -386,7 +413,7 @@ body {
 
 .new-survey-card {
   padding: 0;
-  margin: 10px 0;
+  margin: 30px 0;
   border-radius: 0;
   font-size: 14px;
 }
@@ -472,6 +499,11 @@ body {
   padding: 8px;
   cursor: pointer;
   outline: none;
+  margin-bottom: 10px;
+}
+
+.form-input-file {
+  margin-bottom: 5px;
 }
 
 .form-input-date::-webkit-calendar-picker-indicator,
@@ -520,6 +552,7 @@ body {
 }
 
 .tooltip {
+  margin-right: 20px;
   position: relative;
 }
 
@@ -645,4 +678,12 @@ body {
 
 .border-red {
   border: 1px solid red;
+}
+
+.final-survey-btn-container {
+  width: 200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
 }

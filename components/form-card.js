@@ -1,4 +1,3 @@
-const images = ['form1.png', 'form2.webp', 'form3.webp', 'form4.webp', 'form5.webp',]
 const formCard = {
   tag: "div",
   attributes: {
@@ -14,7 +13,7 @@ const formCard = {
         {
           tag: "img",
           attributes: {
-            src: `../images/${images[Math.floor(Math.random() * 10) % 5]}`,
+            class: 'form-card-img'
           },
         },
       ],
@@ -24,7 +23,7 @@ const formCard = {
       attributes: {
         class: 'form-card-title'
       },
-      content: "Survey 1",
+      content: " ",
     },
     {
       tag: 'div', 

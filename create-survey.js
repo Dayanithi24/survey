@@ -196,6 +196,7 @@ createSurvey.addEventListener("click", () => {
   for (let i = 0; i < len; i++) {
     const question = questions.children[i];
     const obj = {};
+    obj.question_num = i + 1;
     obj.question = validate(question.querySelector("#question-card-question"));
     const inputType = question.querySelector("#question-card-dropdown").value;
     obj.inputType = inputType;

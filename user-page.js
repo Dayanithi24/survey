@@ -2,6 +2,8 @@ import formCard from "./components/form-card.js";
 import { generateSurvey } from "./final-survey.js";
 import loadModule from "./generator.js";
 import changeModule from "./script.js";
+import profile from "./components/profile.js";
+import { store } from "./store.js";
 
 const obj = {
   tag: "div",
@@ -22,6 +24,7 @@ const obj = {
           },
           content: "Survey Master",
         },
+        profile,
         {
           tag: 'button',
           attributes: {
@@ -49,7 +52,20 @@ const images = ['form1.png', 'form2.webp', 'form3.webp', 'form4.webp', 'form5.we
 const logout = userPage.querySelector('.discard-survey-btn');
 
 logout.addEventListener('click', () => {
-  changeModule('login');
+  swal("Sure?", "Do you want to logout?", "warning", {
+    buttons: ["No", "Yes"],
+    closeOnClickOutside: false,
+    dangerMode: true
+  })
+  .then((value) => {
+    if(value){
+      swal({
+        title: "Logged Out Successfully",
+        icon: "success"
+      });
+      changeModule("login");
+    }
+  });
 });
 
 function createCard(survey) {
@@ -74,11 +90,11 @@ function createCard(survey) {
   
   container.append(form);
 }
-
-const observer = new MutationObserver((mutationsList, observer) => {
-  console.log("Fetching surveys...");
+  
+function loadUserPage(){
+  userPage.querySelector('.profile').innerText = store.name;
   fetch("http://127.0.0.1:8080/enabled")
-    .then(response => {
+  .then(response => {
       if (!response.ok) {
         throw new Error("Not found");
       }
@@ -87,17 +103,20 @@ const observer = new MutationObserver((mutationsList, observer) => {
     .then((data) => {
       console.log("Fetched Data:", data);
       
+      const container = userPage.querySelector(".admin-main");
+      let child = container.lastElementChild;
+      while (child) {
+        container.removeChild(child);
+        child = container.lastElementChild;
+      }
+      
       data.forEach((survey) => {
         createCard(survey);
       });
-
-      observer.disconnect();
-      console.log("Observer disconnected.");
     })
     .catch(error => console.log(error));
-});
-
-observer.observe(document.body, { childList: true, subtree: true });
+}
 
 
 export default userPage;
+export {loadUserPage};

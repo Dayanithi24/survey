@@ -1,5 +1,8 @@
+import {store} from "./store.js";
 import loadModule from "./generator.js";
 import changeModule from "./script.js";
+import { loadUserPage } from "./user-page.js";
+import { loadAdminPage } from "./admin-page.js";
 
 const obj = {
   tag: "div",
@@ -66,15 +69,29 @@ loginBtn.addEventListener('click', () => {
     if(userName.value === ''){
         userName.classList.add('border-red');
         flag = false;
-        alert("Enter user name");
+        swal("Error", "Username is Empty", "error")
     }
-    else userName.classList.remove('border-red');
-
+    else {
+      userName.classList.remove('border-red');
+      store.name = userName.value;
+      store.role = role;
+    }
     if(flag) {
+      swal({
+        title: "Login Successful",
+        button: true,
+        icon: "success"
+      })
+      .then(() => {
         if(role === 'ADMIN'){
             changeModule('admin');
+            loadAdminPage();
         }
-        else changeModule('user');
+        else{
+          changeModule('user');
+          loadUserPage();
+        }
+      })
     }
     
 });

@@ -130,7 +130,16 @@ function attachEventListeners(card) {
   });
 
   deleteQuestion.addEventListener("click", () => {
-    questions.removeChild(card);
+    swal("Warning", "Do you want to delete the Question", "warning", {
+      buttons: true,
+      closeOnClickOutside: false,
+      dangerMode: true
+    })
+    .then((value) => {
+      if(value){
+        questions.removeChild(card);
+      }
+    });
   });
   const required = card.querySelector(".required");
   required.addEventListener("change", () => {
@@ -150,6 +159,20 @@ addQuestion.addEventListener("click", () => {
 
 const createSurvey = createSurveyModule.querySelector("#create-survey");
 const form = createSurveyModule.querySelector("#form");
+const discard = createSurveyModule.querySelector('.discard-survey-btn');
+
+discard.addEventListener('click', () => {
+  swal("Sure?", "Do you want to discard?", "warning", {
+    buttons: ["No","Yes"],
+    closeOnClickOutside: false,
+    dangerMode: true
+  })
+  .then((value) => {
+    if(value){
+      changeModule('admin');
+    }
+  });
+});
 
 createSurvey.addEventListener("click", () => {
   let flag = true;
@@ -234,7 +257,7 @@ createSurvey.addEventListener("click", () => {
     changeModule("new-survey");
     loadData(data);
   } else {
-    alert(errorMsg);
+    swal("Error", errorMsg, "error");
   }
 });
 

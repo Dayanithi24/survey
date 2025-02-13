@@ -25,9 +25,13 @@ async function changeModule(pathname) {
         div.replaceChild(newSurvey.newSurveyModule, div.childNodes[0]);
         break;
       default:
-        if(pathname.includes('survey/')){
-          const finalSurvey = await import("./final-survey.js")
+        if (pathname.includes("survey/")) {
+          const finalSurvey = await import("./final-survey.js");
           div.replaceChild(finalSurvey.finalSurveyModule, div.childNodes[0]);
+        } 
+        else if (pathname.includes("response/")) {
+          const responsePage = await import("./response-table.js");
+          div.replaceChild(responsePage.responsePage, div.childNodes[0]);
         }
     }
     history.pushState({ path: pathname }, "", pathname);
@@ -36,15 +40,14 @@ async function changeModule(pathname) {
   }
 }
 
-
 window.addEventListener("popstate", (event) => {
   const path = event.state?.path || "hello.html";
   changeModule(path);
 });
 
-div.append(document.createElement('span'));
+div.append(document.createElement("span"));
 body.appendChild(div);
 
-changeModule('login');
+changeModule("login");
 
 export default changeModule;

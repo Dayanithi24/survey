@@ -143,27 +143,41 @@ function loadData(data) {
   });
   const createSurvey = newSurveyModule.querySelector('#create-survey');
   createSurvey.addEventListener('click', () => {
-    console.log(JSON.stringify(data));
-     fetch("http://127.0.0.1:8080/",{
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-        },
-        body: JSON.stringify(data),
-      })
-      .then(response => {
-        if(!response.ok){
-          throw new Error("Not found")
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data);
-        setTimeout(() => createCard(data), 100);
-        changeModule('admin');
-      })
-      .catch(error => console.log(error));
+    swal("Sure?", "Once created the survey cannot be edited", "info", {
+      buttons: true,
+      closeOnClickOutside: false,
+      dangerMode: true
+    })
+    .then((value) => {
+      if(value){
+        console.log(JSON.stringify(data));
+         fetch("http://127.0.0.1:8080/",{
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/json",
+            },
+            body: JSON.stringify(data),
+          })
+          .then(response => {
+            if(!response.ok){
+              throw new Error("Not found")
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log(data);
+            swal({
+              title: "Survey Created",
+              icon: "success"
+            });
+            setTimeout(() => createCard(data), 100);
+            changeModule('admin');
+          })
+          .catch(error => console.log(error));
+        
+      }
+    });
   });
 }
 

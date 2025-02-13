@@ -687,3 +687,140 @@ body {
   justify-content: space-between;
   margin-bottom: 30px;
 }
+
+.response-page {
+  background-color: #fff;
+  min-height: 100vh;
+  width: 90vw;
+  margin: 0 auto;
+}
+
+.response-page-header {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  margin: 20px auto;
+  height: 100px;
+  align-items: center;
+}
+
+.response-page-header .question-card-dropdown {
+  width: auto;
+}
+
+.response-page-header-date-container {
+  width: 450px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #cccccc3b;
+  border-radius: 32px;
+}
+.response-page-header-date-container .form-input-date{
+  margin: 0;
+}
+
+.response-table-container {
+  width: 90%;
+  margin: 0 auto;
+  height: max-content;
+  overflow: scroll;
+}
+
+.response-table-container::-webkit-scrollbar {
+  display: none;
+}
+
+.response-table{
+  border-collapse: collapse;
+  width: max-content;
+}
+
+.response-table-row {
+  display: block;
+  height: max-content;
+}
+
+.response-table-header {
+  background-color: #000;
+  color: #fff;
+}
+
+.response-table-row:nth-child(even) {
+  background-color: #ccc;
+}
+
+.response-table-cell {
+  padding: 5px 10px;
+  display: inline-block;
+  word-wrap: break-word;
+  max-height: 150px;
+  overflow-y: scroll;
+  width: 150px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.response-table-cell::-webkit-scrollbar {
+  display: none;
+}
+
+.response-page-footer {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  width: 90%;
+  margin: 0 auto;
+  padding-top: 20px;
+}
+
+.search-btn,.close-btn, .next-btn, .prev-btn {
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+  color: #7a5cfa;
+  border-radius: 50%;
+  background-color: #fff;
+  text-align: center;
+  padding-top: 10px;
+  box-sizing: border-box;
+  transition: background-color 0.5s ease-in-out;
+}
+
+.next-btn, .prev-btn {
+  margin: 0 10px;
+  height: 50px;
+  width: 50px;
+  box-shadow: 0 0 5px #666;
+  padding: 13px 0 0 5px;
+}
+
+.prev-btn {
+  padding: 13px 3px 0 0;
+}
+
+.next-btn::before, .prev-btn::before {
+  font-size: x-large;
+  justify-self: center;
+}
+
+.search-btn:hover, .close-btn:hover, .next-btn:hover, .prev-btn:hover{
+  background-color: #7a5cfa;
+  color: #fff;
+}
+
+.search-btn::before, .close-btn::before {
+  font-size: larger;
+}
+
+.response-page-title-container {
+  color: #bcbcbc;
+  display: flex;
+  flex-direction: column;
+}
+
+.response-page-title-container p {
+  font-style: italic;
+  margin-left: 4%;
+}

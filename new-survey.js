@@ -3,6 +3,7 @@ import surveyCard from "./components/survey-card.js";
 import { formInputMap } from "./input.js";
 import changeModule from "./script.js";
 import { createCard } from "./admin-page.js";
+import { store } from "./store.js";
 
 const newSurvey = {
   tag: "div",

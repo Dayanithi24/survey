@@ -1,4 +1,5 @@
 import loadModule from "./generator.js";
+import { store } from "./store.js";
 
 const obj = {
   tag: "div",

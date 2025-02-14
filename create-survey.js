@@ -4,6 +4,7 @@ import loadModule from "./generator.js";
 import { inputMap } from "./input.js";
 import { loadData } from "./new-survey.js";
 import changeModule from "./script.js";
+import { store } from "./store.js";
 
 const obj = {
   tag: "div",

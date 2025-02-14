@@ -92,7 +92,8 @@ function createCard(survey) {
 }
   
 function loadUserPage(){
-  userPage.querySelector('.profile').innerText = store.name;
+  userPage.querySelector('.profile p').innerText = store.name;
+  userPage.querySelector(".profile").setAttribute("data-avatar", store.name.charAt(0).toUpperCase());
   fetch("http://127.0.0.1:8080/enabled")
   .then(response => {
       if (!response.ok) {

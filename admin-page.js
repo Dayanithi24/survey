@@ -243,7 +243,8 @@ function createCard(survey) {
 }
 
 function loadAdminPage() {
-  adminPage.querySelector(".profile").innerText = store.name;
+  adminPage.querySelector(".profile p").innerText = store.name;
+  adminPage.querySelector(".profile").setAttribute("data-avatar", store.name.charAt(0).toUpperCase());
   fetch("http://127.0.0.1:8080/")
     .then((response) => {
       if (!response.ok) {

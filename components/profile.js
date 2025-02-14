@@ -1,12 +1,14 @@
 const profile = {
-    tag: 'p',
-    attributes: {
-        class: 'profile'
+  tag: "div",
+  attributes: {
+    class: "profile",
+  },
+  children: [
+    {
+      tag: "p",
+      content: "",
     },
-    content: ''
-    // dataKey: 'name',
-    // uniqueId: '1',
-    // content: (store) => store.name
-}
+  ],
+};
 
 export default profile;

@@ -202,6 +202,9 @@ let size = 5;
 let dataLength = 0;
 let from = "";
 let to = "";
+let responseCount = 0;
+let isFiltered = false;
+
 const title = responsePage.querySelector('.response-page-title-container span');
 const id = responsePage.querySelector('.response-page-title-container p');
 const pageData = responsePage.querySelector('.response-page-footer span');
@@ -209,6 +212,7 @@ const pageData = responsePage.querySelector('.response-page-footer span');
 function loadTableData(survey) {
   let flag = true;
   currentSurvey = survey;
+  if(!isFiltered) responseCount = survey.responseCount;
   title.innerText = currentSurvey.title;
   id.innerText = `Survey ID : ${currentSurvey.id}`;
   const table = document.createElement("table");
@@ -252,7 +256,7 @@ function loadTableData(survey) {
       const container = responsePage.querySelector(".response-table-container");
       if(flag)
         container.replaceChild(table, container.childNodes[0]);
-      pageData.innerText = `Page ${page + 1} of ${Math.ceil(survey.responseCount / size)}`
+      pageData.innerText = `Page ${page + 1} of ${Math.ceil(responseCount / size)}`
     });
 }
 
@@ -271,7 +275,7 @@ pageSize.addEventListener("change", () => {
 });
 
 next.addEventListener("click", () => {
-  if ((page + 1) * size < currentSurvey.responseCount) {
+  if ((page + 1) * size < responseCount) {
     page++;
     loadTableData(currentSurvey);
   }
@@ -317,14 +321,29 @@ search.addEventListener("click", () => {
   }
   from = fromDate.value;
   to = toDate.value;
-  loadTableData(currentSurvey);
+  isFiltered = true;
+  fetch(`http://127.0.0.1:8080/response/count/survey/${currentSurvey.id}?from=${from}&to=${to}`)
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error("Not found");
+    }
+    return response.text();
+  })
+  .then((data) => {
+      // console.log(data);
+      responseCount = data;
+      loadTableData(currentSurvey);
+  })
+  .catch((error) => console.log(error));
 });
 
 close.addEventListener('click', () => {
+    page = 0;
     fromDate.value = '';
     toDate.value = '';
     from = '';
     to = '';
+    isFiltered = false;
     loadTableData(currentSurvey);
 })
 

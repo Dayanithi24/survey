@@ -824,3 +824,36 @@ body {
   font-style: italic;
   margin-left: 4%;
 }
+
+.profile {
+  box-sizing: border-box;
+  padding: 5px 45px 5px 10px;
+  height: 40px;
+  width: max-content;
+  border: 2px solid #7a5cfa;
+  border-radius: 25px;
+  position: relative; 
+  display: inline-block;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  
+}
+
+.profile::after {
+  content: attr(data-avatar);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background-color: #7a5cfa;
+  color: white;
+  font-weight: bold;
+  font-size: x-large;
+  position: absolute;
+  top: 50%;
+  right: 0; 
+  transform: translateY(-50%);
+}

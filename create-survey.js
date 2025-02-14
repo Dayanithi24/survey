@@ -85,7 +85,6 @@ function attachEventListeners(card) {
   const d = card.querySelector("#decrementor");
   let dec = card.querySelectorAll("#decrementor");
   const deleteQuestion = card.querySelector("#delete-question");
-  console.log(card);
 
   question.addEventListener("input", function () {
     this.style.height = "auto";
@@ -140,10 +139,6 @@ function attachEventListeners(card) {
         questions.removeChild(card);
       }
     });
-  });
-  const required = card.querySelector(".required");
-  required.addEventListener("change", () => {
-    console.log(required.checked);
   });
 }
 
@@ -252,7 +247,6 @@ createSurvey.addEventListener("click", () => {
     }
     data.questions.push(Object.assign({}, obj));
   }
-  console.log(data);
   if (flag) {
     changeModule("new-survey");
     loadData(data);

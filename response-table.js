@@ -227,7 +227,7 @@ function loadTableData(survey) {
   });
   table.append(header);
   fetch(
-    `http://127.0.0.1:8080/response/survey/${survey.id}?page=${page}&size=${size}&from=${from}&to=${to}`
+    `${store.baseUrl}response/survey/${survey.id}?page=${page}&size=${size}&from=${from}&to=${to}`
   )
     .then((response) => {
       if (!response.ok) {
@@ -251,7 +251,7 @@ function loadTableData(survey) {
       dataLength = data.length;
       if(dataLength === 0) flag = false;
     })
-    .catch((error) => console.log(error))
+    .catch((error) => swal("Error", error, "error"))
     .finally(() => {
       const container = responsePage.querySelector(".response-table-container");
       if(flag)
@@ -322,7 +322,7 @@ search.addEventListener("click", () => {
   from = fromDate.value;
   to = toDate.value;
   isFiltered = true;
-  fetch(`http://127.0.0.1:8080/response/count/survey/${currentSurvey.id}?from=${from}&to=${to}`)
+  fetch(`${store.baseUrl}response/count/survey/${currentSurvey.id}?from=${from}&to=${to}`)
   .then((response) => {
     if (!response.ok) {
       throw new Error("Not found");
@@ -330,11 +330,10 @@ search.addEventListener("click", () => {
     return response.text();
   })
   .then((data) => {
-      // console.log(data);
       responseCount = data;
       loadTableData(currentSurvey);
   })
-  .catch((error) => console.log(error));
+  .catch((error) => swal("Error", error, "error"));
 });
 
 close.addEventListener('click', () => {

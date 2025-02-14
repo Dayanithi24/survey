@@ -77,7 +77,6 @@ function createCard(survey) {
 
   form.data = survey;
   form.addEventListener('click', (e) => {
-    console.log(form.data);
     changeModule(`survey/${form.data.id}`);
     setTimeout(() => generateSurvey(form.data));
     
@@ -92,30 +91,30 @@ function createCard(survey) {
 }
   
 function loadUserPage(){
+
   userPage.querySelector('.profile p').innerText = store.name;
   userPage.querySelector(".profile").setAttribute("data-avatar", store.name.charAt(0).toUpperCase());
-  fetch("http://127.0.0.1:8080/enabled")
+
+  fetch(`${store.baseUrl}enabled`)
   .then(response => {
       if (!response.ok) {
         throw new Error("Not found");
       }
       return response.json();
     })
-    .then((data) => {
-      console.log("Fetched Data:", data);
-      
+    .then((data) => {   
       const container = userPage.querySelector(".admin-main");
       let child = container.lastElementChild;
+
       while (child) {
         container.removeChild(child);
         child = container.lastElementChild;
       }
-      
       data.forEach((survey) => {
         createCard(survey);
       });
     })
-    .catch(error => console.log(error));
+    .catch(error => swal("Error", error, "error"));
 }
 
 

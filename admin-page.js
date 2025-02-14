@@ -126,7 +126,6 @@ function createCard(survey) {
       e.stopPropagation();
       return;
     }
-    console.log(form.data);
     changeModule(`survey/${form.data.id}`);
     setTimeout(() => generateSurvey(form.data));
   });
@@ -140,7 +139,7 @@ function createCard(survey) {
   checkbox.addEventListener("change", function (e) {
     e.stopPropagation();
     if (this.checked) {
-      fetch(`http://127.0.0.1:8080/enable/${form.data.id}`, {
+      fetch(`${store.baseUrl}enable/${form.data.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -154,12 +153,11 @@ function createCard(survey) {
           return response.json();
         })
         .then((data) => {
-          console.log(data);
           form.data = data;
         })
-        .catch((error) => console.log(error));
+        .catch((error) => swal("Error", error, "error"));
     } else {
-      fetch(`http://127.0.0.1:8080/disable/${form.data.id}`, {
+      fetch(`${store.baseUrl}disable/${form.data.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -173,10 +171,9 @@ function createCard(survey) {
           return response.json();
         })
         .then((data) => {
-          console.log(data);
           form.data = data;
         })
-        .catch((error) => console.log(error));
+        .catch((error) => swal("Error", error, "error"));
     }
   });
 
@@ -201,7 +198,7 @@ function createCard(survey) {
       }
     ).then((value) => {
       if (value) {
-        fetch(`http://127.0.0.1:8080/${form.data.id}`, {
+        fetch(`${store.baseUrl}${form.data.id}`, {
           method: "DELETE",
         })
           .then((response) => {
@@ -211,9 +208,8 @@ function createCard(survey) {
             return response.text();
           })
           .then((data) => {
-            console.log(data);
             if (data === "Deleted Successfully!!") {
-              fetch(`http://127.0.0.1:8080/response/survey/${form.data.id}`, {
+              fetch(`${store.baseUrl}response/survey/${form.data.id}`, {
                 method: "DELETE",
               })
                 .then((response) => {
@@ -223,18 +219,17 @@ function createCard(survey) {
                   return response.text();
                 })
                 .then((data) => {
-                  console.log(data);
                   container.removeChild(form);
                   swal({
                     title: "Survey deleted Successfully",
                     icon: "success",
                   });
                 })
-                .catch((error) => console.log(error));
+                .catch((error) => swal("Error", error, "error"));
             }
             container.removeChild(form);
           })
-          .catch((error) => console.log(error));
+          .catch((error) => swal("Error", error, "error"));
       }
     });
   });
@@ -245,7 +240,7 @@ function createCard(survey) {
 function loadAdminPage() {
   adminPage.querySelector(".profile p").innerText = store.name;
   adminPage.querySelector(".profile").setAttribute("data-avatar", store.name.charAt(0).toUpperCase());
-  fetch("http://127.0.0.1:8080/")
+  fetch(`${store.baseUrl}`)
     .then((response) => {
       if (!response.ok) {
         throw new Error("Not found");
@@ -253,8 +248,6 @@ function loadAdminPage() {
       return response.json();
     })
     .then((data) => {
-      console.log("Fetched Data:", data);
-
       const container = adminPage.querySelector(".admin-main");
       let child = container.lastElementChild;
       while (child) {
@@ -266,7 +259,7 @@ function loadAdminPage() {
         createCard(survey);
       });
     })
-    .catch((error) => console.log(error));
+    .catch((error) => swal("Error", error, "error"));
 }
 
 export default adminPage;

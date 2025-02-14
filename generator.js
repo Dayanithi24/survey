@@ -1,6 +1,5 @@
 export default function loadModule(obj) {
   const keys = Object.keys(obj);
-  //   console.log(keys);
   let element;
   for (const c of keys) {
     if (c === "tag") {
@@ -22,14 +21,12 @@ export default function loadModule(obj) {
     } else if (c === "style") {
       for (const s of Object.keys(obj.style)) {
         element.style[s] = obj.style[s];
-        // console.log(s);
       }
     } else if (c === "attributes") {
       for (const s of Object.keys(obj.attributes)) {
         if (obj.attributes[s] instanceof Function) {
           element.setAttribute(s, obj.attributes[s](k));
         } else element.setAttribute(s, obj.attributes[s]);
-        // console.log(s);
       }
     }
   }

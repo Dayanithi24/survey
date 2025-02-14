@@ -57,14 +57,12 @@ const newSurvey = {
 const newSurveyModule = loadModule(newSurvey);
 
 function loadData(data) {
-  console.log("new survey", data);
   const questions = newSurveyModule.querySelector("#questions");
   let child = questions.lastElementChild;
   while (child) {
       questions.removeChild(child);
       child = questions.lastElementChild;
   }
-  // console.log(questions);
   newSurveyModule.querySelector("#new-survey-title-card-title").innerText = data.title;
   newSurveyModule.querySelector("#new-survey-title-card-description").innerText = data.description;
   data.questions.forEach((question, index) => {
@@ -150,8 +148,7 @@ function loadData(data) {
     })
     .then((value) => {
       if(value){
-        console.log(JSON.stringify(data));
-         fetch("http://127.0.0.1:8080/",{
+         fetch(`${store.baseUrl}`,{
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -166,7 +163,6 @@ function loadData(data) {
             return response.json();
           })
           .then((data) => {
-            console.log(data);
             swal({
               title: "Survey Created",
               icon: "success"
@@ -174,7 +170,7 @@ function loadData(data) {
             setTimeout(() => createCard(data), 100);
             changeModule('admin');
           })
-          .catch(error => console.log(error));
+          .catch(error => swal("Error", error, "error"));
         
       }
     });

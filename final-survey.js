@@ -74,7 +74,6 @@ const finalSurveyModule = loadModule(finalSurvey);
 
 function generateSurvey(data) {
   const checkboxArray = [];
-  console.log("Generate survey", data);
   const questions = finalSurveyModule.querySelector("#questions");
   let child = questions.lastElementChild;
   while (child) {
@@ -208,9 +207,8 @@ function generateSurvey(data) {
               requestData.responses[question].push(element.value);
           });
         });
-        console.log(requestData);
 
-        fetch("http://127.0.0.1:8080/response", {
+        fetch(`${store.baseUrl}response`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -225,7 +223,6 @@ function generateSurvey(data) {
             return response.json();
           })
           .then((data) => {
-            console.log(data);
             swal("Response Submitted", "", "success");
             if (store.role === "ADMIN") {
               changeModule("admin");
@@ -235,7 +232,7 @@ function generateSurvey(data) {
               loadUserPage();
             }
           })
-          .catch((error) => console.log(error));
+          .catch((error) => swal("Error", error, "error"));
       }
     });
   });

@@ -73,6 +73,7 @@ const finalSurvey = {
 const finalSurveyModule = loadModule(finalSurvey);
 
 function generateSurvey(data) {
+  const fileQuestions = [];
   const checkboxArray = [];
   const questions = finalSurveyModule.querySelector("#questions");
   let child = questions.lastElementChild;
@@ -158,6 +159,7 @@ function generateSurvey(data) {
         const file = loadModule(formInputMap.get("file"));
         file.setAttribute("name", id);
         file.setAttribute("id", id);
+        fileQuestions.push(id);
         // file.setAttribute('required', question.required);
         inputArea.append(file);
         break;
@@ -195,6 +197,9 @@ function generateSurvey(data) {
       if (value) {
         const formData = new FormData(e.target);
         const jsonData = Object.fromEntries(formData.entries());
+        fileQuestions.forEach(q => {
+          jsonData[q] = jsonData[q].name;
+        })
         const requestData = {};
         requestData.surveyId = data.id;
         requestData.responses = jsonData;
@@ -207,7 +212,6 @@ function generateSurvey(data) {
               requestData.responses[question].push(element.value);
           });
         });
-
         fetch(`${store.baseUrl}response`, {
           method: "POST",
           headers: {

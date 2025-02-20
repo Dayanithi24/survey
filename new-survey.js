@@ -103,7 +103,7 @@ function loadData(data) {
         text.setAttribute("name", id);
         text.setAttribute("id", id);
         text.setAttribute("minlength", question.minimum_value);
-        text.setAttribute("maxlength", question.minimum_value);
+        text.setAttribute("maxlength", question.maximum_value);
         inputArea.append(text);
         break;
       case "date":

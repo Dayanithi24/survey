@@ -72,3 +72,121 @@
         }
     ]
 }
+
+{
+    "content": [
+        {
+            "id": "67ab0f49aa1ef029dc5150b9",
+            "surveyId": "67a5e40424cbda1f304e6aaa",
+            "respondedBy": "d",
+            "respondedAt": "2025-02-11T14:20:17.489",
+            "responses": {
+                "question1": "opt1",
+                "question2": [
+                    "check1",
+                    "check2"
+                ],
+                "question3": "dh",
+                "question4": "2025-02-19",
+                "question5": "5",
+                "question6": "14:23",
+                "question7": {}
+            }
+        },
+        {
+            "id": "67ab10d6aa1ef029dc5150ba",
+            "surveyId": "67a5e40424cbda1f304e6aaa",
+            "respondedBy": "Daya",
+            "respondedAt": "2025-02-11T14:26:54.021",
+            "responses": {
+                "question1": "opt1",
+                "question2": [
+                    "check1",
+                    "check2",
+                    "check3"
+                ],
+                "question3": "dh",
+                "question4": "2025-02-13",
+                "question5": "6",
+                "question6": "14:14",
+                "question7": {}
+            }
+        },
+        {
+            "id": "67ac2f028eab0f4b54d9cad4",
+            "surveyId": "67a5e40424cbda1f304e6aaa",
+            "respondedBy": "f",
+            "respondedAt": "2025-02-12T10:47:54.009",
+            "responses": {
+                "question1": "opt2",
+                "question2": [
+                    "check1"
+                ],
+                "question3": "er",
+                "question4": "2025-02-27",
+                "question5": "8",
+                "question6": "10:47",
+                "question7": {}
+            }
+        },
+        {
+            "id": "67ac2f1c8eab0f4b54d9cad5",
+            "surveyId": "67a5e40424cbda1f304e6aaa",
+            "respondedBy": "fa",
+            "respondedAt": "2025-02-12T10:48:20.992",
+            "responses": {
+                "question1": "opt1",
+                "question2": [
+                    "check2"
+                ],
+                "question3": "gg",
+                "question4": "2025-02-27",
+                "question5": "10",
+                "question6": "15:48",
+                "question7": {}
+            }
+        },
+        {
+            "id": "67ac2f1c8eab0f4b54d9cad6",
+            "surveyId": "67a5e40424cbda1f304e6aaa",
+            "respondedBy": "fa",
+            "respondedAt": "2025-02-12T10:48:20.995",
+            "responses": {
+                "question1": "opt1",
+                "question2": [
+                    "check2"
+                ],
+                "question3": "gg",
+                "question4": "2025-02-27",
+                "question5": "10",
+                "question6": "15:48",
+                "question7": {}
+            }
+        }
+    ],
+    "pageable": {
+        "pageNumber": 0,
+        "pageSize": 5,
+        "sort": {
+            "empty": true,
+            "unsorted": true,
+            "sorted": false
+        },
+        "offset": 0,
+        "paged": true,
+        "unpaged": false
+    },
+    "last": false,
+    "totalElements": 18,
+    "totalPages": 4,
+    "size": 5,
+    "number": 0,
+    "sort": {
+        "empty": true,
+        "unsorted": true,
+        "sorted": false
+    },
+    "first": true,
+    "numberOfElements": 5,
+    "empty": false
+}

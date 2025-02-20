@@ -200,10 +200,12 @@ function createTh(data) {
 let currentSurvey = null;
 let page = 0;
 let size = 5;
-let dataLength = 0;
+let pageCount = 0;
 let from = "";
 let to = "";
 let responseCount = 0;
+let isFirst = true;
+let isLast = true;
 let isFiltered = false;
 
 const title = responsePage.querySelector('.response-page-title-container span');
@@ -237,7 +239,11 @@ function loadTableData(survey) {
       return response.json();
     })
     .then((data) => {
-      data.forEach((response) => {
+      responseCount = data.totalElements;
+      isFirst = data.first;
+      isLast = data.last;
+      pageCount = data.totalPages;
+      data.content.forEach((response) => {
         const tr = document.createElement("tr");
         tr.setAttribute("class", "response-table-row");
 
@@ -249,15 +255,13 @@ function loadTableData(survey) {
         }
         table.append(tr);
       });
-      dataLength = data.length;
-      if(dataLength === 0) flag = false;
+      flag = data.empty;
     })
     .catch((error) => swal("Error", error, "error"))
     .finally(() => {
       const container = responsePage.querySelector(".response-table-container");
-      if(flag)
-        container.replaceChild(table, container.childNodes[0]);
-      pageData.innerText = `Page ${page + 1} of ${Math.ceil(responseCount / size)}`
+      container.replaceChild(table, container.childNodes[0]);
+      pageData.innerText = `Page ${flag ? 0 : page + 1} of ${pageCount}`
     });
 }
 
@@ -276,14 +280,14 @@ pageSize.addEventListener("change", () => {
 });
 
 next.addEventListener("click", () => {
-  if ((page + 1) * size < responseCount) {
+  if (!isLast) {
     page++;
     loadTableData(currentSurvey);
   }
 });
 
 prev.addEventListener("click", () => {
-  if (page > 0) {
+  if (!isFirst) {
     page--;
     loadTableData(currentSurvey);
   }
@@ -323,18 +327,9 @@ search.addEventListener("click", () => {
   from = fromDate.value;
   to = toDate.value;
   isFiltered = true;
-  fetch(`${store.baseUrl}response/count/survey/${currentSurvey.id}?from=${from}&to=${to}`)
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error("Not found");
-    }
-    return response.text();
-  })
-  .then((data) => {
-      responseCount = data;
-      loadTableData(currentSurvey);
-  })
-  .catch((error) => swal("Error", error, "error"));
+  page = 0;
+  loadTableData(currentSurvey);
+  
 });
 
 close.addEventListener('click', () => {
@@ -344,6 +339,8 @@ close.addEventListener('click', () => {
     from = '';
     to = '';
     isFiltered = false;
+    isFirst = true;
+    isLast = true;
     loadTableData(currentSurvey);
 })
 
